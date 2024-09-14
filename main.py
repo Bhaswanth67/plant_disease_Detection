@@ -6,7 +6,7 @@ import streamlit as st
 
 # Google Drive file ID and file path
 FILE_ID = "1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
-MODEL_PATH = "trained_plant_disease_model.keras"
+MODEL_PATH = "trained_plant_disease_model.h5"
 MODEL_URL = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
 
 # Function to download the model if not present
