@@ -6,7 +6,7 @@ import requests
 
 # Define model path and URL
 MODEL_PATH = "trained_plant_disease_model.keras"
-MODEL_URL = "https://github.com/Bhaswanth67/plant_disease_Detection/blob/main/trained_plant_disease_model.keras"
+MODEL_URL = "https://github.com/Bhaswanth67/plant_disease_Detection/blob/raw/trained_plant_disease_model.keras"
 
 # Function to download the model if not present
 def download_model():
