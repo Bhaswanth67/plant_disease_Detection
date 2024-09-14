@@ -1,22 +1,23 @@
 import os
 import requests
-import streamlit as st
 import tensorflow as tf
 import numpy as np
+import streamlit as st
 
-# Google Drive file ID
-# FILE_ID = "1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
+# Google Drive file ID and file path
+FILE_ID = "1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
 MODEL_PATH = "trained_plant_disease_model.keras"
-MODEL_URL = f"https://drive.google.com/file/d/1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
+MODEL_URL = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
 
 # Function to download the model if not present
 def download_model():
     if not os.path.exists(MODEL_PATH):
         st.info("Downloading the model, please wait...")
-        response = requests.get(MODEL_URL)
+        response = requests.get(MODEL_URL, stream=True)
         if response.status_code == 200:
             with open(MODEL_PATH, 'wb') as file:
-                file.write(response.content)
+                for chunk in response.iter_content(chunk_size=8192):
+                    file.write(chunk)
             st.success("Model downloaded successfully!")
         else:
             st.error("Failed to download the model. Please check the URL or model file.")
@@ -28,11 +29,10 @@ def model_prediction(test_image):
     # Ensure the model is downloaded
     if not download_model():
         return None
-    
+
     # Load the model
     try:
-        # You might need to use `model_path` if it's a `.h5` file.
-        model = tf.keras.models.load_model(MODEL_URL)
+        model = tf.keras.models.load_model(MODEL_PATH)
     except Exception as e:
         st.error(f"Error loading model: {e}")
         return None
@@ -80,9 +80,9 @@ elif app_mode == "About":
     st.markdown("""
     #### About Dataset
     This dataset is recreated using offline augmentation from the original dataset. The original dataset can be found on this GitHub repo.
-    This dataset consists of about 87K rgb images of healthy and diseased crop leaves which is categorized into 38 different classes. The total dataset is divided into 80/20 ratio of training and validation set preserving the directory structure.
+    This dataset consists of about 87K RGB images of healthy and diseased crop leaves which are categorized into 38 different classes. The total dataset is divided into an 80/20 ratio of training and validation set preserving the directory structure.
     A new directory containing 33 test images is created later for prediction purposes.
-    
+
     #### Content
     1. train (70,295 images)
     2. test (33 images)
@@ -122,6 +122,7 @@ elif app_mode == "Disease Recognition":
                 'Tomato___healthy'
             ]
             st.success("Model is Predicting it's a {}".format(class_name[result_index]))
+
 
     # Add warning message at the bottom
     st.warning("⚠️ The model is currently under production and may make mistakes. Results may vary. Please use with caution.")
