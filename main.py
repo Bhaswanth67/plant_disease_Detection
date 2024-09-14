@@ -32,7 +32,7 @@ def model_prediction(test_image):
     # Load the model
     try:
         # You might need to use `model_path` if it's a `.h5` file.
-        model = tf.keras.models.load_model(MODEL_PATH)
+        model = tf.keras.models.load_model(MODEL_URL)
     except Exception as e:
         st.error(f"Error loading model: {e}")
         return None
