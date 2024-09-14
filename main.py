@@ -31,6 +31,7 @@ def model_prediction(test_image):
     
     # Load the model
     try:
+        # You might need to use `model_path` if it's a `.h5` file.
         model = tf.keras.models.load_model(MODEL_PATH)
     except Exception as e:
         st.error(f"Error loading model: {e}")
@@ -121,8 +122,6 @@ elif app_mode == "Disease Recognition":
                 'Tomato___healthy'
             ]
             st.success("Model is Predicting it's a {}".format(class_name[result_index]))
-   
-
 
     # Add warning message at the bottom
     st.warning("⚠️ The model is currently under production and may make mistakes. Results may vary. Please use with caution.")
