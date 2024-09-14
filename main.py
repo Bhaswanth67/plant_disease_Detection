@@ -1,26 +1,33 @@
+import os
+import requests
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-import os
-import requests
 
-# Define model path and URL
+# Google Drive file ID
+FILE_ID = "1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
 MODEL_PATH = "trained_plant_disease_model.keras"
-MODEL_URL = "https://github.com/Bhaswanth67/plant_disease_Detection/blob/raw/trained_plant_disease_model.keras"
+MODEL_URL = f"https://drive.google.com/uc?id={FILE_ID}"
 
 # Function to download the model if not present
 def download_model():
     if not os.path.exists(MODEL_PATH):
         st.info("Downloading the model, please wait...")
         response = requests.get(MODEL_URL)
-        with open(MODEL_PATH, 'wb') as file:
-            file.write(response.content)
-        st.success("Model downloaded successfully!")
+        if response.status_code == 200:
+            with open(MODEL_PATH, 'wb') as file:
+                file.write(response.content)
+            st.success("Model downloaded successfully!")
+        else:
+            st.error("Failed to download the model. Please check the URL or model file.")
+            return False
+    return True
 
 # TensorFlow Model Prediction
 def model_prediction(test_image):
     # Ensure the model is downloaded
-    download_model()
+    if not download_model():
+        return None
     
     # Load the model
     try:
@@ -108,12 +115,13 @@ elif app_mode == "Disease Recognition":
                 'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy', 'Potato___Early_blight', 
                 'Potato___Late_blight', 'Potato___healthy', 'Raspberry___healthy', 'Soybean___healthy', 
                 'Squash___Powdery_mildew', 'Strawberry___Leaf_scorch', 'Strawberry___healthy', 
-                'Tomato___Bacterial_spot', 'Tomato___Early_blight', 'Tomato___Late_blight', 
-                'Tomato___Leaf_Mold', 'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite', 
-                'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus', 
+                'Tomato___Bacterial_spot', 'Tomato___Early_blight', 'Tomato___Late_blight', 'Tomato___Leaf_Mold', 
+                'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite', 
+                'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus',
                 'Tomato___healthy'
             ]
-            st.success(f"Model is Predicting it's a {class_name[result_index]}")
+            st.success("Model is Predicting it's a {}".format(class_name[result_index]))
+   
 
 
     # Add warning message at the bottom
