@@ -54,7 +54,7 @@ if app_mode == "Home":
     st.image(image_path, use_column_width=True)
     st.markdown("""
     Welcome to the Plant Disease Recognition System! 🌿🔍
-    
+
     Our mission is to help in identifying plant diseases efficiently. Upload an image of a plant, and our system will analyze it to detect any signs of diseases. Together, let's protect our crops and ensure a healthier harvest!
 
     ### How It Works
@@ -72,7 +72,23 @@ if app_mode == "Home":
 
     ### About Us
     Learn more about the project, our team, and our goals on the **About** page.
+
+    ### Diseases We Can Detect
+    Our model is trained to detect various plant diseases, including but not limited to:
+    - **Apple Diseases:** Apple Scab, Black Rot, Cedar Apple Rust
+    - **Corn Diseases:** Cercospora Leaf Spot, Common Rust, Northern Leaf Blight
+    - **Tomato Diseases:** Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Tomato Mosaic Virus
+    - **Potato Diseases:** Early Blight, Late Blight
+    - **Grape Diseases:** Black Rot, Esca (Black Measles), Leaf Blight (Isariopsis Leaf Spot)
+    - **Peach Diseases:** Bacterial Spot
+    - **Strawberry Diseases:** Leaf Scorch
+    - **Pepper Diseases:** Bacterial Spot
+    - **Blueberry Diseases:** Healthy
+    - **Soybean Diseases:** Healthy
+    - **Raspberry Diseases:** Healthy
+    - **Squash Diseases:** Powdery Mildew
     """)
+
 
 # About Project
 elif app_mode == "About":
@@ -87,7 +103,16 @@ elif app_mode == "About":
     1. train (70,295 images)
     2. test (33 images)
     3. validation (17,572 images)
+
+    #### Project Team
+    This project is developed by:
+    - **Bhaswanth**
+    - **Suhaas**
+    - **Sujit**
+
+    Our team is dedicated to creating an efficient and accurate plant disease recognition system to help in protecting crops and ensuring a healthier harvest.
     """)
+
 
 # Prediction Page
 elif app_mode == "Disease Recognition":
