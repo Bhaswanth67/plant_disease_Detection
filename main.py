@@ -59,6 +59,7 @@ elif(app_mode=="About"):
                 """)
 
 #Prediction Page
+#Prediction Page
 elif(app_mode=="Disease Recognition"):
     st.header("Disease Recognition")
     test_image = st.file_uploader("Choose an Image:")
@@ -85,3 +86,6 @@ elif(app_mode=="Disease Recognition"):
                     'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus',
                       'Tomato___healthy']
         st.success("Model is Predicting it's a {}".format(class_name[result_index]))
+
+    # Add warning message at the bottom
+    st.warning("⚠️ The model is currently under production and may make mistakes. Results may vary. Please use with caution.")
