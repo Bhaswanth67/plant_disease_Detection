@@ -4,6 +4,12 @@ import tensorflow as tf
 import numpy as np
 import streamlit as st
 
+hide_st_style = """
+<style>
+footer {visibility: hidden;}
+header {visibility: hidden;}
+</style>
+
 # Google Drive file ID and file path
 FILE_ID = "1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
 MODEL_PATH = "trained_plant_disease_model.h5"
