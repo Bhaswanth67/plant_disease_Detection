@@ -4,13 +4,6 @@ import tensorflow as tf
 import numpy as np
 import streamlit as st
 
-hide_streamlit_style = """
-
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Google Drive file ID and file path
 FILE_ID = "1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
