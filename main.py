@@ -8,7 +8,7 @@ hide_st_style = """
 <style>
 footer {visibility: hidden;}
 header {visibility: hidden;}
-</style>
+</style>"""
 
 # Google Drive file ID and file path
 FILE_ID = "1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
