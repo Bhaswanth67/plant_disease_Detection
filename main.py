@@ -5,7 +5,7 @@ import numpy as np
 import streamlit as st
 
 st.set_page_config(
-    page_icon="plant.png",
+    page_icon="Plant.png",
     page_title="Plant Disease Detection",
     layout="wide",  # This ensures wide layout
     initial_sidebar_state="expanded"  # Makes sure sidebar is expanded by default
