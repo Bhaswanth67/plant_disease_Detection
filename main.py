@@ -4,6 +4,14 @@ import tensorflow as tf
 import numpy as np
 import streamlit as st
 
+hide_github_icon = """
+#GithubIcon {
+  visibility: hidden;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
+
 st.set_page_config(
     page_icon="Plant.png",
     page_title="Plant Disease Detection",
