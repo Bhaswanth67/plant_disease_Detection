@@ -4,6 +4,12 @@ import tensorflow as tf
 import numpy as np
 import streamlit as st
 
+st.set_page_config(
+    page_icon="plant.png",
+    page_title="Plant Disease Detection",
+    layout="wide",  # This ensures wide layout
+    initial_sidebar_state="expanded"  # Makes sure sidebar is expanded by default
+)
 
 # Google Drive file ID and file path
 FILE_ID = "1Z8oMCp1XR3sFq2iK034RCnTj_2RbqRKN"
@@ -76,79 +82,76 @@ if app_mode == "Home":
 
     ### Diseases We Can Detect
     Our model is trained to detect various plant diseases, including but not limited to:
-    - **Apple Diseases:** Apple Scab, Black Rot, Cedar Apple Rust
-    - **Corn Diseases:** Cercospora Leaf Spot, Common Rust, Northern Leaf Blight
-    - **Tomato Diseases:** Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Tomato Mosaic Virus
-    - **Potato Diseases:** Early Blight, Late Blight
-    - **Grape Diseases:** Black Rot, Esca (Black Measles), Leaf Blight (Isariopsis Leaf Spot)
-    - **Peach Diseases:** Bacterial Spot
-    - **Strawberry Diseases:** Leaf Scorch
-    - **Pepper Diseases:** Bacterial Spot
+    - **Apple Diseases:** Apple Scab, Black Rot, Cedar Apple Rust, Healthy
+    - **Corn Diseases:** Cercospora Leaf Spot, Common Rust, Northern Leaf Blight, Healthy
+    - **Tomato Diseases:** Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites (Two-spotted Spider Mite), Target Spot, Yellow Leaf Curl Virus, Tomato Mosaic Virus, Healthy
+    - **Potato Diseases:** Early Blight, Late Blight, Healthy
+    - **Grape Diseases:** Black Rot, Esca (Black Measles), Leaf Blight (Isariopsis Leaf Spot), Healthy
+    - **Peach Diseases:** Bacterial Spot, Healthy
+    - **Strawberry Diseases:** Leaf Scorch, Healthy
+    - **Pepper Diseases:** Bacterial Spot, Healthy
     - **Blueberry Diseases:** Healthy
     - **Soybean Diseases:** Healthy
     - **Raspberry Diseases:** Healthy
-    - **Squash Diseases:** Powdery Mildew
+    - **Squash Diseases:** Powdery Mildew, Healthy
     """)
 
 
-# About Project
+
+# About Page
 elif app_mode == "About":
     st.header("About")
     st.markdown("""
     #### About Dataset
-    This dataset is recreated using offline augmentation from the original dataset. The original dataset can be found on this GitHub repo.
-    This dataset consists of about 87K RGB images of healthy and diseased crop leaves which are categorized into 38 different classes. The total dataset is divided into an 80/20 ratio of training and validation set preserving the directory structure.
-    A new directory containing 33 test images is created later for prediction purposes.
-
-    #### Content
-    1. train (70,295 images)
-    2. test (33 images)
-    3. validation (17,572 images)
+    This dataset consists of approximately 87,867 RGB images of healthy and diseased crop leaves, categorized into 38 different classes. 
+    The dataset is divided as follows:
+    - **Training Set:** 61,490 images (70%)
+    - **Validation Set:** 13,164 images (15%)
+    - **Test Set:** 13,213 images (15%)
 
     #### Project Team
     This project is developed by:
-    - **Bhaswanth**
-    - **Suhaas**
-    - **Sujit**
+    - **Sujit Varma K**
+    - **Suhaas NV**
+    - **Bhaswanth Kumar B**
 
     Our team is dedicated to creating an efficient and accurate plant disease recognition system to help in protecting crops and ensuring a healthier harvest.
     """)
 
 
-# Prediction Page
+
+# Disease Recognition Page
 elif app_mode == "Disease Recognition":
     st.header("Disease Recognition")
     test_image = st.file_uploader("Choose an Image:")
-
-    if st.button("Show Image"):
-        st.image(test_image, width=4, use_column_width=True)
     
-    # Predict button
-    if st.button("Predict"):
-        st.snow()
-        st.write("Our Prediction")
+    if test_image:
+        st.image(test_image, use_column_width=True)
+    
+        # Predict button
+        if st.button("Predict"):
+            result_index = model_prediction(test_image)
 
-        result_index = model_prediction(test_image)
-
-        if result_index is not None:
-            # Class names for the predictions
-            class_name = [
-                'Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust', 'Apple___healthy',
-                'Blueberry___healthy', 'Cherry_(including_sour)___Powdery_mildew', 'Cherry_(including_sour)___healthy',
-                'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot', 'Corn_(maize)___Common_rust_', 
-                'Corn_(maize)___Northern_Leaf_Blight', 'Corn_(maize)___healthy', 'Grape___Black_rot', 
-                'Grape___Esca_(Black_Measles)', 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)', 'Grape___healthy', 
-                'Orange___Haunglongbing_(Citrus_greening)', 'Peach___Bacterial_spot', 'Peach___healthy', 
-                'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy', 'Potato___Early_blight', 
-                'Potato___Late_blight', 'Potato___healthy', 'Raspberry___healthy', 'Soybean___healthy', 
-                'Squash___Powdery_mildew', 'Strawberry___Leaf_scorch', 'Strawberry___healthy', 
-                'Tomato___Bacterial_spot', 'Tomato___Early_blight', 'Tomato___Late_blight', 'Tomato___Leaf_Mold', 
-                'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite', 
-                'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus',
-                'Tomato___healthy'
-            ]
-            st.success("Model is Predicting it's a {}".format(class_name[result_index]))
-
-
-    # Add warning message at the bottom
-    st.warning("⚠️ The model is currently under production and may make mistakes. Results may vary. Please use with caution.")
+            if result_index is not None:
+                # Class names for the predictions
+                class_name = [
+                    'Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust', 'Apple___healthy',
+                    'Blueberry___healthy', 'Cherry_(including_sour)___Powdery_mildew', 'Cherry_(including_sour)___healthy',
+                    'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot', 'Corn_(maize)___Common_rust_', 
+                    'Corn_(maize)___Northern_Leaf_Blight', 'Corn_(maize)___healthy', 'Grape___Black_rot', 
+                    'Grape___Esca_(Black_Measles)', 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)', 'Grape___healthy', 
+                    'Orange___Haunglongbing_(Citrus_greening)', 'Peach___Bacterial_spot', 'Peach___healthy', 
+                    'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy', 'Potato___Early_blight', 
+                    'Potato___Late_blight', 'Potato___healthy', 'Raspberry___healthy', 'Soybean___healthy', 
+                    'Squash___Powdery_mildew', 'Strawberry___Leaf_scorch', 'Strawberry___healthy', 
+                    'Tomato___Bacterial_spot', 'Tomato___Early_blight', 'Tomato___Late_blight', 'Tomato___Leaf_Mold', 
+                    'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite', 
+                    'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus',
+                    'Tomato___healthy'
+                ]
+                st.success(f"Model is predicting it's a {class_name[result_index]}")
+            else:
+                st.error("Prediction failed, please check the model file.")
+    
+    # Add warning message
+    st.warning("⚠️ The model is currently under production and may make mistakes. Please use with caution.")
