@@ -156,4 +156,4 @@ elif app_mode == "Disease Recognition":
                 st.error("Prediction failed, please check the model file.")
     
     # Add warning message
-    st.warning("⚠️ The model is currently under production and may make mistakes. Please use with caution.")
+    #st.warning("⚠️ The model is currently under production and may make mistakes. Please use with caution.")
