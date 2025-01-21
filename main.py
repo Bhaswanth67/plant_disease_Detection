@@ -114,7 +114,7 @@ elif app_mode == "About":
     #### Project Team
     This project is developed by:
 
-    - **Bhaswanth Kumar B**
+    - **Bhaswanth Kumar Bonthala**
 
     Our team is dedicated to creating an efficient and accurate plant disease recognition system to help in protecting crops and ensuring a healthier harvest.
     """)
