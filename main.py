@@ -60,7 +60,7 @@ app_mode = st.sidebar.selectbox("Select Page", ["Home", "About", "Disease Recogn
 if app_mode == "Home":
     st.header("PLANT DISEASE RECOGNITION SYSTEM")
     image_path = "home_page.jpeg"
-    st.image(image_path, use_column_width=True)
+    st.image(image_path, use_container_width=True)
     st.markdown("""
     Welcome to the Plant Disease Recognition System! 🌿🔍
 
@@ -127,7 +127,7 @@ elif app_mode == "Disease Recognition":
     test_image = st.file_uploader("Choose an Image:")
     
     if test_image:
-        st.image(test_image, use_column_width=True)
+        st.image(test_image, use_container_width=True)
     
         # Predict button
         if st.button("Predict"):
